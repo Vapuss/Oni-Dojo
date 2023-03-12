@@ -14,6 +14,7 @@ Paginile pe care vreau sa le adaug ar fi de forma:
 •	Contact, pagina cu adresa clubului, date de contact ale clubului, telefon, adresa de email, formular pentru a transmite mesaje(cuvinte cheie:contact, telefon, email)
 
 •	Contul meu, pagina utilizatorului, unde se pot vizualiza diferite date personale cat si starea abonamentului activ/inactiv, data de expirare. (cuvinte cheie: cont, abonamentul meu)
+
 Site-uri similare:
 
 •	https://arko.ro/ : PRO:Design simplu si usor de inteles, toate informatiile necesare sunt usor de gasit; CONS: Nu pot achizitiona abonament online, nu-mi pot vizualiza starea abonamentului, nu pot achizitiona echipamente

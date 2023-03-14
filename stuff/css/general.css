@@ -1,3 +1,65 @@
-p{
-    color: red;
+
+body{
+    --cul-back:#8A2700;
+    --cul-text:bisque;
+    --cul-border:#008A73;
 }
+body.emar{
+    --cul-back:rgb(18, 5, 5);
+    --cul-text:rgb(255, 247, 247);
+}
+body{
+    background-color: var(--cul-back);
+    color: var(--cul-text);
+    
+}
+#grid-pagina{
+    display: grid;
+    grid-template-areas: "z-intro z-intro z-intro z-intro"
+                         "z-tabel z-tabel z-calendar z-calendar"
+                         "z-tabel z-tabel z-anunturi z-anunturi"
+                         "z-utilizatori z-statis z-statis z-server"
+                         "z-int-stuff z-int-stuff z-int-stuff z-int-stuff";
+}
+#grid-pagina > *{
+    border: 1px solid var(--cul-border);
+}
+
+#intro{
+    grid-area: z-intro;
+}
+#tabel{
+    grid-area: z-tabel;
+}
+#calendar{
+    grid-area: z-calendar;
+}
+#utilizatori{
+    grid-area: z-utilizatori;
+}
+#anunturi{
+    grid-area: z-anunturi;
+}
+#statis{
+    grid-area: z-statis;
+}
+#server{
+    grid-area: z-server;
+}
+#int-stuff{
+    grid-area: z-int-stuff;
+}
+
+
+
+
+
+
+/* Color Theme Swatches in Hex 
+.Dojooo-1-hex { color: #8A2700; }
+.Dojooo-2-hex { color: #FCDED2; }
+.Dojooo-3-hex { color: #D64006; }
+.Dojooo-4-hex { color: #008A73; }
+.Dojooo-5-hex { color: #40D6BD; }
+
+*/

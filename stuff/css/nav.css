@@ -1,0 +1,18 @@
+#hamburger, #ch-menu{
+    display: none;
+}
+body{
+    --inaltime-meniu:25px;
+    --latime-buton:150px;
+    --culoare-meniu: var(--culoare-fundal-inchis);
+    --cul-border-buton:black;
+}
+ul.meniu li{
+    width: var(--latime-buton);
+    height: var(--inaltime-meniu);
+    background-color: var(--culoare-meniu);
+    overflow: hidden;
+    text-align:center;
+    border: 1px solid var(--cul-border-buton) ;
+
+}

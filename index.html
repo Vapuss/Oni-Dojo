@@ -7,7 +7,8 @@
         <meta name="author" content="Pavel">
         <meta name="keywords" content="arte martiale, karate, muay thai, kickboxing, MMA, sport, dojo, club sportiv, club, antrenament, kickboxing, boxing, autoaparare, sport de contact">
         <title>Oni Dojo</title>
-        <meta name="desciption" content="Cursuri de arte martiale pentru incepatori si avansati in Bucuresti. Clase de Muay Thai, Kickboxing, MMA, Karate.">
+        <meta name="description" content="Cursuri de arte martiale pentru incepatori si avansati in Bucuresti. Clase de Muay Thai, Kickboxing, MMA, Karate.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Etapa 1_Task 1 -->
         <link rel="apple-touch-icon" sizes="180x180" href="./stuff/ico/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="./stuff/ico/favicon-32x32.png">
@@ -20,6 +21,12 @@
         <meta name="theme-color" content="#ffffff">
         <!--<a href="http://www.freepik.com">Designed by pikisuperstar / Freepik</a>-->
         <link rel="stylesheet" href="stuff/css/general.css" type="text/css">
+        <!-- Etapa 2_Task 2 -->
+        <!-- <link rel="stylesheet" href="stuff/css/general2000.css" type="text/css" media="screen and (min-width:1401px)"> -->
+        <link rel="stylesheet" href="stuff/css/general1400.css" type="text/css" media="screen and (max-width:1400px)">
+        <link rel="stylesheet" href="stuff/css/general700.css" type="text/css" media="screen and (max-width:700px)">
+        <link rel="stylesheet" href="stuff/css/nav.css" type="text/css">
+
 
 
 
@@ -30,7 +37,11 @@
             <!--Etapa 1_Task 5-->
             <h1>Oni Dojo</h1>
             <nav>
-                <ul>
+                <label id="hamburger" for="ch-menu">
+                    <img src="resurse/imagini/Hamburger_icon_alb.png" alt="menu">
+                </label>
+                <input id="ch-menu" type="checkbox">
+                <ul class="meniu">
                     <li>
                         <a href="#acasa">Acasa</a>
                         <ul>
@@ -128,8 +139,8 @@
                     <em>Marcus Aurelius</em>
                     <figure>
                         <picture>
-                            <source media="(max-width: 600px)" srcset="./stuff/pics/3.png">
-                            <source media="(max-width: 1000px)" srcset="./stuff/pics/2.png">
+                            <source media="(max-width: 800px)" srcset="./stuff/pics/3.png">
+                            <source media="(max-width: 1400px)" srcset="./stuff/pics/2.png">
                             <source media="(max-width: 2000px)" srcset="./stuff/pics/1.png">
                             <img src="./stuff/pics/1.png" alt="karate-training">
                         </picture>

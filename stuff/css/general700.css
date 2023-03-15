@@ -1,0 +1,23 @@
+html{
+    font-size: 14px;
+}
+body{
+    --spatiere-pag:15px;
+    --padding-sec:5px;
+}
+#grid-pagina{
+    grid-template-columns: 1fr;
+    grid-template-areas: "z-intro"
+                         "z-tabel"
+                         "z-calendar"
+                         "z-anunturi"
+                         "z-utilizatori"
+                         "z-statis"
+                         "z-server"
+                         "z-int-stuff";
+    gap:10px;
+}
+
+#grid-pagina >*{
+    margin-bottom: 15px;
+}

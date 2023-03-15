@@ -1,8 +1,14 @@
-
+html{
+    font-size: 18px;
+}
+/*etapa 2 task 1*/
 body{
     --cul-back:#8A2700;
     --cul-text:bisque;
     --cul-border:#008A73;
+    --spatiere-pag:50px;
+    --padding-sec:15px;
+    --culoare-fundal-inchis:#C886FF;
 }
 body.emar{
     --cul-back:rgb(18, 5, 5);
@@ -11,8 +17,22 @@ body.emar{
 body{
     background-color: var(--cul-back);
     color: var(--cul-text);
+    padding-left: var(--spatiere-pag);
+    padding-right: var(--spatiere-pag);
+    min-width: 450px;
     
 }
+
+h1{
+    font-size: 2rem;
+}
+h2{
+    font-size: 1.5rem;
+}
+h3{
+    font-size: 1rem;
+}
+/* etapa 2 task 2*/
 #grid-pagina{
     display: grid;
     grid-template-areas: "z-intro z-intro z-intro z-intro"
@@ -20,9 +40,14 @@ body{
                          "z-tabel z-tabel z-anunturi z-anunturi"
                          "z-utilizatori z-statis z-statis z-server"
                          "z-int-stuff z-int-stuff z-int-stuff z-int-stuff";
+                         
+    
+                         gap: 20px 20px;
 }
+ 
 #grid-pagina > *{
-    border: 1px solid var(--cul-border);
+    border: 2px solid var(--cul-border);
+    padding: var(--padding-sec);
 }
 
 #intro{
@@ -48,6 +73,11 @@ body{
 }
 #int-stuff{
     grid-area: z-int-stuff;
+}
+
+img{
+    width: 100%;
+    max-width: 400px;
 }
 
 

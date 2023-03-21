@@ -1,14 +1,73 @@
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  /*
+    2. Remove default margin
+  */
+  * {
+    margin: 0;
+  }
+  /*
+    3. Allow percentage-based heights in the application
+  */
+  html, body {
+    height: 100%;
+  }
+  /*
+    Typographic tweaks!
+    4. Add accessible line-height
+    5. Improve text rendering
+  */
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  /*
+    6. Improve media defaults
+  */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  /*
+    7. Remove built-in form typography styles
+  */
+  input, button, textarea, select {
+    font: inherit;
+  }
+  /*
+    8. Avoid text overflows
+  */
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+  /*
+    9. Create a root stacking context
+  */
+  #root, #__next {
+    isolation: isolate;
+  }
+
 html{
     font-size: 18px;
 }
 /*etapa 2 task 1*/
 body{
-    --cul-back:#8A2700;
-    --cul-text:bisque;
+    --cul-back: #8A2700;
+    --cul-back-grid:bisque;
+    --cul-text:black;
     --cul-border:#008A73;
+    --culoare-fundal-inchis:#008A73;
     --spatiere-pag:50px;
     --padding-sec:15px;
-    --culoare-fundal-inchis:#C886FF;
+    --cul-text-outgrid:bisque;
+    --cul-back2:#D64006;
+    --cul-tabel-c1:bisque;
+    --cul-tabel-c2:#8A2700;
+    --cul-table-hover:#40D6BD;
 }
 body.emar{
     --cul-back:rgb(18, 5, 5);
@@ -20,17 +79,27 @@ body{
     padding-left: var(--spatiere-pag);
     padding-right: var(--spatiere-pag);
     min-width: 450px;
+    margin: 0;
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
     
 }
 
 h1{
     font-size: 2rem;
+    color: var(--cul-text-outgrid);
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
 }
 h2{
     font-size: 1.5rem;
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
 }
 h3{
     font-size: 1rem;
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
+}
+
+ul.contacts{
+    color: var(--cul-text-outgrid);
 }
 /* etapa 2 task 2*/
 #grid-pagina{
@@ -48,6 +117,8 @@ h3{
 #grid-pagina > *{
     border: 2px solid var(--cul-border);
     padding: var(--padding-sec);
+    background-color:var(--cul-back-grid);
+    border-radius:1em;
 }
 
 #intro{
@@ -55,6 +126,7 @@ h3{
 }
 #tabel{
     grid-area: z-tabel;
+    text-align: center;
 }
 #calendar{
     grid-area: z-calendar;
@@ -75,12 +147,147 @@ h3{
     grid-area: z-int-stuff;
 }
 
-img{
-    width: 100%;
-    max-width: 400px;
+#poza{
+    width: 50%;
+    min-width: 40%;
+    max-width: 60%;
+}
+#figcap{
+  font-size: 16px;
 }
 
 
+
+.upz {
+    display:inline-block;
+    position: fixed;
+    bottom: 2rem;
+    right: 4rem;
+    width: 1em;
+    height: 1em;
+    line-height: 0.9em;
+    font-size: 3em;
+    text-align: center;
+    vertical-align: top;
+    border-radius: 50%;
+    text-decoration: none;
+    opacity: 65%;
+    background-color: var(--cul-back);
+    color: var(--cul-back-grid);
+    box-shadow: 0 0 15px var(--cul-border);
+    transition: 0.55s;
+
+}
+
+.upz:hover {
+    background-color: var(--cul-back-grid);
+    box-shadow: 0 0 15px var(--cul-border);
+    color: var(--cul-back);
+    opacity: 100%;
+    transition: 0.55s;
+}
+
+#program {
+    border:0.4em solid var(--cul-border);
+    border-radius:1em;
+    overflow:hidden;
+    border-spacing: 0;
+    border-collapse: separate;
+    width: 100%;
+    height: 10%;  
+}
+
+
+#program td{
+  padding:12px 15px;
+  text-align: center;
+}
+
+#program tbody tr:hover,
+#program thead tr:hover,
+#program tfoot tr:hover {
+    background-color: var(--cul-border);
+    transition: 0.3s;
+}
+
+#program td:hover, #program th:hover {
+    background-color: var(--cul-table-hover);
+    transition:0.3s;
+}
+
+#program tbody td:nth-child(odd)  {
+  background-color: var(--cul-tabel-c1);
+}
+
+#program tbody td:nth-child(even)  {
+  background-color: var(--cul-tabel-c2);
+}
+
+#program tbody tr:hover td {
+  background-color: var(--cul-border);
+  transition: 0.3s;
+}
+
+#program tbody tr:hover td:hover {
+  background-color: var(--cul-table-hover);
+  transition: 0.3s;
+}
+
+#program thead th {
+    height: 2em;
+} 
+#program tfoot{
+  height:2em;
+}
+
+.container-iframe {
+  display: flex;
+  flex-direction: row;
+  margin: 2em;
+  height: 20vw;
+}
+
+.butoane{
+  display: flex;
+  flex-direction: column;
+}
+
+.butoane a {
+  background-color: var(--cul-tabel-c1);
+  border:2px solid var(--cul-back);
+  width:6em;
+  height:4em;
+  font-size:1em;
+  border-radius: 0.3em;
+  border-right:0;
+  border-top-right-radius:0;
+  border-bottom-right-radius:0;
+  box-shadow: 0.2em 0.05em 0em 0em var(--cul-back) inset;
+  margin-bottom: 0.3em;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  line-height: 1.5em;
+  vertical-align: middle;
+}
+
+.butoane a:hover {
+  background-color: var(--cul-back2);
+  color: bisque;
+  transition: 0.3s;
+}
+
+.videos {
+  width:50%;
+  height:100%;
+  max-width:50%;
+  min-width:40%;
+  max-height: 100%;
+  min-height: 90%;
+  border: 0.3em solid var(--cul-back);
+}
+ 
 
 
 

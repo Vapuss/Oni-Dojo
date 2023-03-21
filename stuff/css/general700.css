@@ -1,12 +1,13 @@
 html{
     font-size: 14px;
+
 }
 body{
     --spatiere-pag:15px;
     --padding-sec:5px;
 }
 #grid-pagina{
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-template-areas: "z-intro"
                          "z-tabel"
                          "z-calendar"
@@ -16,8 +17,13 @@ body{
                          "z-server"
                          "z-int-stuff";
     gap:10px;
+    max-width: 100%;
+  overflow-x: hidden;
+    
+
 }
 
 #grid-pagina >*{
     margin-bottom: 15px;
 }
+

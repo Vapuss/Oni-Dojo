@@ -16,7 +16,6 @@ nav{
     position: sticky;
     top: 0;
     margin-left: calc(-1*var(--spatiere-pag));
-    border-radius: 1em;
 }
 ul.meniu{
     display: flex;

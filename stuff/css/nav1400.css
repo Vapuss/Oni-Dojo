@@ -1,0 +1,11 @@
+body{
+    --inaltime-meniu:45px;
+    --latime-buton:100px;
+ 
+}
+#casuta{
+    display: none;
+}
+#casuta-mediu{
+    display: block;
+}

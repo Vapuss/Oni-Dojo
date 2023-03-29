@@ -292,7 +292,9 @@ ul.contacts{
 main{
   margin-top: 30px;
 }
-
+#banner,#watermark{
+  display: none;
+}
 
 
 

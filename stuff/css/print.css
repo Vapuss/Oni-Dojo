@@ -24,13 +24,17 @@
     }
     h1{
         text-align: center;
+        margin-top: 35%;
     }
-    ul.meniu li ul {
-        display: block;
+    ul.meniu{
+        margin: 0 auto;
+        display:block;
+        
     }
     
     nav{
         page-break-after: always;
+        width: 2em;
     }
     footer{
         page-break-before: always;

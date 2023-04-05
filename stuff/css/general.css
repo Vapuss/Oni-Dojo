@@ -112,6 +112,7 @@ ul.contacts{
                          
     
                          gap: 20px 20px;
+                         
 }
  
 #grid-pagina > *{
@@ -172,8 +173,8 @@ ul.contacts{
     border-radius: 50%;
     text-decoration: none;
     opacity: 65%;
-    background-color: var(--cul-back);
-    color: var(--cul-back-grid);
+    background-color: var(--cul-back-grid);
+    color: var(--cul-back);
     box-shadow: 0 0 15px var(--cul-border);
     transition: 0.55s;
 

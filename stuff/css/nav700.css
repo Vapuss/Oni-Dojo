@@ -1,6 +1,8 @@
 body{
     --inaltime-meniu:40px;
     --latime-buton:100%;
+    --cul-table-hover:#40D6BD;
+    --culoare-fundal-inchis:#008A73;
 }
 
 #hamburger{
@@ -12,33 +14,103 @@ body{
     height: var(--inaltime-meniu);
     width: auto;
     margin: 0;
-
 }
 
 ul.meniu{
     display: none;
 }
 
-#ch-menu:checked+ul.meniu{
+#ch-menu:checked + ul.meniu {
+  display: block;
+}
+  
+  ul.meniu > li {
+    position: relative;
+  }
+  
+  ul.meniu > li > div {
     display: block;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  ul.meniu li:hover > ul {
+    display: block;
+  }
+  
+  ul.meniu li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  ul.meniu li ul li {
+    position: relative;
+  }
+  
+  ul.meniu li ul li > div {
+    display: block;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #ch-menu:checked + ul.meniu li div {
+    transform-origin: center;
+    transform: scale(0.1, 1);
     animation-name: animatie-meniu;
-    animation-duration: 1s;
+    animation-duration: 0.7s;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
-    transform-origin: center top;
+  }
+  
+  @keyframes animatie-meniu {
+    0% {
+      transform: scale(0.1, 1);
+    }
+    20% {
+      transform: scale(0.2, 1);
+    }
+    40% {
+      transform: scale(0.4, 1);
+    }
+    60% {
+      transform: scale(0.6, 1);
+    }
+    80% {
+      transform: scale(0.8, 1);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+  
+
+
+
+nav ul li .subm:hover{
+    text-decoration:none;
+    border-bottom: none;
+    
+} 
+nav ul li .subm:not(:hover){
+    text-decoration:none;
+    border-bottom: none;
+    
+} 
+
+nav>ul>li>div>a{
+    text-shadow: none;
+}
+nav>ul>li>div>a:hover{
+    text-shadow: none;
+    transition: none;
+}
+nav>ul>li>div>a:not(:hover){
+    text-shadow: none;
+    transition: none;
 }
 
-@keyframes animatie-meniu{
-    0%{
-        opacity: 0;
-        transform: scale(0.5,0);
-    }
-    50%{
-        transform: scale(0.5,1);
-    }
-    100%{
-        opacity: 1;
-        transform: scale(1,1);
-    }
-}

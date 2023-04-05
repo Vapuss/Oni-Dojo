@@ -1,0 +1,74 @@
+@media print{
+    #banner{
+        position: absolute;
+		display:block;
+        border:7px double black;
+        width:50%;
+        text-align:center;
+        top:0;
+        right:0;
+    }
+    img,video,iframe,figcaption,.container-iframe,.upz{
+        display: none;
+    }
+
+    #grid-pagina{
+        display: block;
+    }
+    #tabel{
+        page-break-after: always;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    h1{
+        text-align: center;
+        margin-top: 35%;
+    }
+    ul.meniu{
+        margin: 0 auto;
+        display:block;
+        
+    }
+    
+    nav{
+        page-break-after: always;
+        width: 2em;
+    }
+    footer{
+        page-break-before: always;
+    }
+    #watermark
+		{
+			display: block;
+			position: fixed;
+			bottom:0;
+            height: 10%;
+            width: 60%;
+            text-align: center;
+            color:black;
+            opacity: 0.3;
+		}
+
+
+}
+
+@page {
+    size: A4 portrait;
+    margin-bottom:2cm;
+    margin-top:2cm;
+    counter-increment: page;
+        
+}
+@page:left{
+
+    margin-left:2cm;
+    margin-right:1cm;
+    border-radius: 20cm;
+}
+@page:right{
+
+    margin-right:2cm;
+    margin-left:1cm;
+}

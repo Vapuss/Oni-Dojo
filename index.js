@@ -11,8 +11,12 @@ app.get("/ceva", function(req, res){
     res.send("altceva");
 })
 
-app.get("/index", function(req, res){
+app.get(["/index","/","/home"], function(req, res){
     res.render("pagini/index");
+})
+
+app.get(["/despre"], function(req, res){
+    res.render("pagini/despre");
 })
 
 app.listen(8080);

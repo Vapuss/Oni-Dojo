@@ -1,4 +1,5 @@
 const express = require("express");
+const fs=require("fs");
 
 app= express();
 console.log("Folder proiect", __dirname);
@@ -15,9 +16,13 @@ app.get(["/index","/","/home"], function(req, res){
     res.render("pagini/index");
 })
 
-app.get(["/despre"], function(req, res){
-    res.render("pagini/despre");
+app.get("/*", function(req,res){
+    res.render("pagini"+req.url);
+
 })
 
+function initializeazaErori(){
+
+}
 app.listen(8080);
 console.log("Serverul a pornit");

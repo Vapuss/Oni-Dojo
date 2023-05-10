@@ -6,6 +6,8 @@ obGlobal={
 }
 app= express();
 console.log("Folder proiect", __dirname);
+console.log("Cale fisier", __filename);
+console.log("Director de lucru",process.cwd);
 
 app.set("view engine","ejs");
 
@@ -26,7 +28,8 @@ app.get("/*", function(req,res){
             console.log(err);
             if(err.message.startsWith("Failed to lookup view"))
             {
-                afiseazaEroare(res, 404);
+                //afiseazaEroare(res, {_identificator:404, _titlu:"bau"});
+                afiseazaEroare(res, 404, "bau");
             }
             else
             {
@@ -53,23 +56,26 @@ function initializeazaErori(){
     }
 }
 initializeazaErori()
-
-function afiseazaEroare(res, _identificator, _titlu, _text, _imagine){
+/*daca  programatorul seteaza titlul, se ia titlul din argument
+daca nu e setat, se ia cel din json
+daca nu avem titluk nici in JSOn se ia titlul de valoarea default
+idem pentru celelalte*/
+function afiseazaEroare(res, _identificator, _titlu="titlu default", _text, _imagine){
     let vErori=obGlobal.obErori.info_erori;
     let eroare=vErori.find(function(elem){return elem.identificator == _identificator});
     if(eroare){
-        let titlu=_titlu || eroare.titlu;
-        let text=_text || eroare.text;
-        let imagine=_imagine || eroare.imagine;
+        let titlu1=_titlu=="titlu default" ? (eroare.titlu || _titlu) : _titlu;
+        let text1=_text || eroare.text;
+        let imagine1=_imagine || eroare.imagine;
         if(eroare.status)
-            res.status(eroare.identificator).render("pagini/eroare",{titlu:eroare.titlu, text:eroare.text, imagine:eroare.imagine});
+            res.status(eroare.identificator).render("pagini/eroare",{titlu:titlu1, text:text1, imagine:imagine1});
         else
-            res.render("pagini/eroare",{titlu:eroare.titlu, text:eroare.text, imagine:eroare.imagine1});
+            res.render("pagini/eroare",{titlu:titlu1, text:text1, imagine:imagine1});
     }
     else
         {
             var errDef=obGlobal.obErori.eroare_default;
-            res.render("pagini/eroare",{titlu:errDef.titlu, text:errDef.text, imagine:errDef.imagine});
+            res.render("pagini/eroare",{titlu:errDef.titlu, text:errDef.text, imagine:obGlobal.obErori.cale_baza + "/" +errDef.imagine});
     }
         
 }

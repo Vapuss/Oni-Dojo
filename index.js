@@ -1,5 +1,7 @@
 const express = require("express");
 const fs=require("fs");
+const path=require('path');
+
 obGlobal={
     obErori:null,
     obImagini:null
@@ -9,9 +11,26 @@ console.log("Folder proiect", __dirname);
 console.log("Cale fisier", __filename);
 console.log("Director de lucru",process.cwd);
 
+vectorFoldere=["temp","temp1"];
+for(let folder of vectorFoldere){
+    //let caleFolder=__dirname + "/" + folder;
+    let caleFolder=path.join(__dirname,folder); 
+    if(!fs.existsSync(caleFolder)){
+        fs.mkdirSync(caleFolder);
+    }
+} 
+
 app.set("view engine","ejs");
 
 app.use("/stuff",express.static(__dirname+"/stuff")); //scapam de 7000 de app.geturi
+
+app.use(/^\/stuff(\/[a-zA-Z0-9]*)*$/,function(req, res){
+    afiseazaEroare(res,403);
+})
+
+app.get("/favicon.ico" , function(req, res){
+    res.sendFile(__dirname+"/stuff/ico/favicon.ico");
+})
 
 app.get("/ceva", function(req, res){
     res.send("altceva");
@@ -21,7 +40,13 @@ app.get(["/index","/","/home"], function(req, res){
     res.render("pagini/index");
 })
 
+app.get("/*.ejs", function(req, res){
+    afiseazaEroare(res, 400);
+})
+
 app.get("/*", function(req,res){
+    try
+    {
     console.log(req.url);
     res.render("pagini"+req.url, function(err, rezRandare){
         if(err){
@@ -40,7 +65,18 @@ app.get("/*", function(req,res){
             console.log(rezRandare);
             res.send(rezRandare);
         }
-    });
+    });}
+    catch(err){
+        if(err.message.startsWith("Cannot find module"))
+            {
+                //afiseazaEroare(res, {_identificator:404, _titlu:"bau"});
+                afiseazaEroare(res, 404, "bau");
+            }
+            else
+            {
+                afiseazaEroare(res);
+            }
+    }
     
 
 })

@@ -20,6 +20,13 @@
             "text": "Ai greșit ruta. Stânga-împrejur și pa!",
             "imagine":"interzis.png"
         },
+        {
+            "identificator":400,
+            "status":true,
+            "titlu":"400 - Bad request",
+            "text": "Cerere gresita!!!!!",
+            "imagine":"interzis.png"
+        },
         
         {
             "identificator":1,

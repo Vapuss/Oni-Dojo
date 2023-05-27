@@ -11,6 +11,7 @@
        <%- include("../fragmente/head.ejs") %> 
         <!-- Etapa 1_Task 1 -->
        
+       
 
 
 
@@ -21,10 +22,31 @@
         <%- include("../fragmente/header.ejs") %>
 
         <main>
+            <div id="grid-galerie">
+                <% for (let imag of locals.imagini) {
+                    d=new Date();
+                    var v_zile=["luni","marti","miercuri","joi","vineri","sambata"];
+                    if(imag.zile && imag.zile.includes(v_zile[d.getDay()])){
+
+                    %>
+                   
+                        <figure>
+                            <picture>
+                                <source srcset="<%- imag.fisier_mediu %>" media="(max-width:1000px)" />
+                                <img src="<%- imag.fisier %>" alt="imagine">
+                            </picture>
+                            <figcaption><%- imag.descriere %></figcaption>
+                        </figure>
+            
+                        <% }  %>
+                <% }  %>
+            </div>
+            
             <!-- Etapa 1_Task 6 -->
             <div id="grid-pagina">
             <section id="intro">
                 <h2 id="shortabout">Arte Martiale Oni - Autoaparare si Disciplina</h2>
+                <button class="btn btn-success">ceva</button>
                 <!-- Etapa 1_Task 9 si 10 -->
                 <p>Clubul nostru a luat nastere in 2016 ca urmare a pasiunii antrenorilor nostrii, Stefan si Bogdan, fosti colegi de facultate, fata de culturile si traditiile japoneze si tailandeze, pasiune dobandita in perioada 2011-2015 cand cei doi au locuit in Bangkok si Okinawa. Au luat parte la numeroase clase si antrenamente in cadrul unora dintre cele mai prestigioase cluburi de arte martiale asiatice, avand onoarea de a fi antrenati de maestri veritabili ai stilurilor <b>Muay Thai</b> si <b>Karate</b>. Au asimilat nu numai tehnici de autoaparare, dar si tehnici ce armonizeaza mintea si corpul. Aceste cunostiinte au decis sa le transmita mai departe tuturor celor care sunt interesati de aceasta lume a artelor martiale, care doresc sa practice sport intr-un mediu placut si prietenos si care vor sa-si depaseasca limitele. Dojo-ul nostru dispune de numeroase facilitati precum un tatami spatios, saci de box, ring, si multe altele, menite sa ofere o experienta cat mai enjoyable in cadrul clubului. <strong>Va asteptam cu drag la antrenamente! OSS!</strong> </p>
                 <section id="vrajeala">

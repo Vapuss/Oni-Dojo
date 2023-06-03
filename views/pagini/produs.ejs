@@ -3,10 +3,11 @@
     <head>
         <meta name="description" content="Cofetaria Dulcelind ofera prajituri, torturi, produse de patiserie cu optiunea de achizitie online si livrare prin curier.">
         <meta name="keywords" content="cofetarie, Dulcelind, prajituri, torturi, dulce, pateuri, produse">
-        
+        <link rel="stylesheet" href="/stuff/css/produse.css" type="text/css" />
         <title>Cofetăria Dulcelind - home</title>
-        <%- include("../fragmente/head") %>     
-        <link href="/resurse/css/produs.css" type="text/css" rel="stylesheet" />
+        <%- include("../fragmente/head") %>  
+        <script type="text/javascript" src=/stuff/js/produse.js></script>   
+        
     </head>
     <body>
     <%- include("../fragmente/header") %>
@@ -25,7 +26,7 @@
                     <p>Pentru diabetici: <span class="pt_diabetici"><%- locals.prod.pt_diabetici %> </span></p>
                     <p>Data adăugare: <span class="categorie"><%- locals.prod.data_adaugare %> </span></p>
                     <figure class="imag-produs">
-                        <img  src="/resurse/imagini/produse/<%- locals.prod.imagine %>" alt="[imagine <%- locals.prod.nume %>]" />
+                        <img  src="/stuff/pics/produse/<%- locals.prod.imagine %>" alt="[imagine <%- locals.prod.nume %>]" />
                     </figure>    
                 </article>
             

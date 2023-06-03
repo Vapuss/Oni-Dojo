@@ -18,17 +18,28 @@ client.query("select * from lab8_16", function(err, rez){
 } )
 
 
+
 obGlobal={
     obErori:null,
     obImagini:null,
     folderScss:path.join(__dirname,"stuff/scss"),
     folderCss:path.join(__dirname,"stuff/css"),
-    folderBackup:path.join(__dirname,"backup")
+    folderBackup:path.join(__dirname,"backup"),
+    optiuniMeniu:[]
 }
+
+
+client.query("select * from unnest(enum_range(null::tipuri_produse))", function(err, rezCategorie){
+    if(err)
+       { console.log(err);}
+    else
+    {
+        obGlobal.optiuniMeniu=rezCategorie.rows;
+    }});
 app= express();
 console.log("Folder proiect", __dirname);
 console.log("Cale fisier", __filename);
-console.log("Director de lucru",process.cwd);
+console.log("Director de lucru",process.cwd());
 
 vectorFoldere=["temp","temp1","backup"];
 for(let folder of vectorFoldere){
@@ -41,20 +52,29 @@ for(let folder of vectorFoldere){
 
 function compileazaScss(caleScss, caleCss){
     if(!caleCss)
- {   let vectorCale=caleScss.split("\\")
-    let numeFisExt=vectorCale[vectorCale.length-1];
+ {   //let vectorCale=caleScss.split("\\")
+    //let numeFisExt=vectorCale[vectorCale.length-1];
+    let numeFisExt=path.basename(caleScss);
     let numeFis=numeFisExt.split(".")[0];
     caleCss=numeFis+".css";
 }
     if (!path.isAbsolute(caleScss))
-    caleScss=path.join(obGlobal.folderScss,caleScss)
+        caleScss=path.join(obGlobal.folderScss,caleScss)
     if (!path.isAbsolute(caleCss))
-    caleCss=path.join(obGlobal.folderCss,caleCss)
-    let vectorCale=caleCss.split("\\");
-    let numeFisCss=vectorCale[vectorCale.length-1];
+        caleCss=path.join(obGlobal.folderCss,caleCss)
+
+    let caleBackup=path.join(obGlobal.folderBackup, "stuff/css");
+    if(!fs.existsSync(caleBackup)){
+        fs.mkdirSync(caleBackup,{recursive:true})
+    }
+
+
+   // let vectorCale=caleCss.split("\\");
+   // let numeFisCss=vectorCale[vectorCale.length-1];
+   let numeFisCss=path.basename(caleCss);
     if (fs.existsSync(caleCss))
        { 
-        fs.copyFileSync(caleCss,path.join(obGlobal.folderBackup,numeFisCss))
+        fs.copyFileSync(caleCss,path.join(obGlobal.folderBackup, "stuff/css",numeFisCss))
     }
     rez=sass.compile(caleScss, {"sourceMap":true});
     fs.writeFileSync(caleCss,rez.css)
@@ -63,7 +83,7 @@ function compileazaScss(caleScss, caleCss){
 //compileazaScss("a.scss");
 
 vFisiere=fs.readdirSync(obGlobal.folderScss);
-console.log(vFisiere);
+//console.log(vFisiere);
 for(let numeFis of vFisiere){
     if(path.extname(numeFis)==".scss"){
         compileazaScss(numeFis);
@@ -84,6 +104,12 @@ app.set("view engine","ejs");
 
 app.use("/stuff",express.static(__dirname+"/stuff")); //scapam de 7000 de app.geturi
 app.use("/node_modules",express.static(__dirname+"/node_modules"));
+
+
+app.use("/*", function(req, res, next){
+    res.locals.optiuniMeniu=obGlobal.optiuniMeniu;
+    next();
+})
 
 app.use(/^\/stuff(\/[a-zA-Z0-9]*)*$/,function(req, res){
     afiseazaEroare(res,403);
@@ -108,18 +134,29 @@ app.get("/produse",function(req, res){
     //TO DO query pentru a selecta toate produsele
     //TO DO se adauaga filtrarea dupa tipul produsului
     //TO DO se selecteaza si toate valorile din enum-ul categ_prajitura
-        let conditieWhere="";
-        if(req.query.tip)
-              conditieWhere=` where tip_produs='${req.query.tip}'`
-        client.query("select * from prajituri"+ conditieWhere , function( err, rez){
-            console.log(300)
-            if(err){
-                console.log(err);
-                afiseazaEroare(res, 2);
-            }
-            else
-                res.render("pagini/produse", {produse:rez.rows, optiuni:[]});
-        });
+    client.query("select * from unnest(enum_range(null::categ_prajitura))", function(err, rezCategorie){
+        if(err)
+           { console.log(err);}
+        else
+        {
+            let conditieWhere="";
+            if(req.query.tip)
+                  conditieWhere=` where tip_produs='${req.query.tip}'`
+            client.query("select * from prajituri"+ conditieWhere , function( err, rez){
+                console.log(300)
+                if(err){
+                    console.log(err);
+                    afiseazaEroare(res, 2);
+                }
+                else
+                    console.log(rez);
+                    res.render("pagini/produse", {produse:rez.rows, optiuni:rezCategorie.rows});
+            });
+        }
+    
+    })
+    
+       
 
 
 });

@@ -70,8 +70,19 @@ body{
     --cul-table-hover:#40D6BD;
 }
 body.emar{
-    --cul-back:rgb(18, 5, 5);
-    --cul-text:rgb(255, 247, 247);
+    --cul-back:rgb(53, 14, 5);
+    --cul-text:rgb(195, 90, 9);
+    --cul-back-grid:rgb(9, 39, 61);
+    --cul-border:#033930;
+    --culoare-fundal-inchis:#033930;
+    --spatiere-pag:50px;
+    --padding-sec:15px;
+    --cul-text-outgrid:rgb(195, 90, 9);
+    --cul-back2:#D64006;
+    --cul-tabel-c1:rgb(9, 39, 61);
+    --cul-tabel-c2:rgb(53, 14, 5);
+    --cul-table-hover:#1f043d;
+
 }
 body{
     background-color: var(--cul-back);

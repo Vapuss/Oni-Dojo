@@ -1,5 +1,5 @@
 
-    let tema=localStorage.getItem("tema");
+     tema=localStorage.getItem("tema");
     if(tema){
         document.body.classList.add("emar");
     }

@@ -22,25 +22,7 @@
         <%- include("../fragmente/header.ejs") %>
 
         <main>
-            <div id="grid-galerie">
-                <% for (let imag of locals.imagini) {
-                    d=new Date();
-                    var v_zile=["luni","marti","miercuri","joi","vineri","sambata"];
-                    if(imag.zile && imag.zile.includes(v_zile[d.getDay()])){
-
-                    %>
-                   
-                        <figure>
-                            <picture>
-                                <source srcset="<%- imag.fisier_mediu %>" media="(max-width:1000px)" />
-                                <img src="<%- imag.fisier %>" alt="imagine">
-                            </picture>
-                            <figcaption><%- imag.descriere %></figcaption>
-                        </figure>
             
-                        <% }  %>
-                <% }  %>
-            </div>
             
             <!-- Etapa 1_Task 6 -->
             <div id="grid-pagina">
@@ -50,7 +32,7 @@
                     <form id="form_inreg"  method="post" class="date"  action="/login"  enctype="multipart/form-data">
                         <p>
                             <label>
-                                Username: <input type="text" name="username" id="inp-username" value="" required">
+                                Username: <input type="text" name="username" id="inp-username" value="" required>
                             </label>
                         </p>
                         <p>
@@ -203,11 +185,40 @@
 
             <section id="anunturi">
                 <h2>Anunturi</h2>
+                
+                <div>
+                    <p id="refl">Text cu reflexie</p>
+                    <p id="refle">Text cu reflexie</p>
+                </div>
+                <hr id="hasr">
                 <p>
                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem quam ad, saepe possimus nostrum ex esse est voluptates ea alias, veniam fuga culpa aspernatur! Nobis necessitatibus modi quaerat sequi sapiente.
                 </p>
             </section>
 
+
+            <section id="galerie-statica">
+                <h2>Galerie</h2>
+            <div id="grid-galerie">
+                <% for (let imag of locals.imagini) {
+                    d=new Date();
+                    var v_zile=["luni","marti","miercuri","joi","vineri","sambata","duminica"]
+                    if(imag.zile && imag.zile.includes(v_zile[d.getDay()])){
+
+                    %>
+                   
+                        <figure>
+                            <picture>
+                                <source srcset="<%- imag.fisier_mediu %>" media="(max-width:1000px)" />
+                                <img src="<%- imag.fisier %>" alt="imagine">
+                            </picture>
+                            <figcaption><%- imag.descriere %></figcaption>
+                        </figure>
+            
+                        <% }  %>
+                <%  } %>
+            </div>
+            </section>
             <section id="utilizatori">
                 <h2>Utilizatori</h2>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates consequuntur necessitatibus omnis quaerat ad nulla dicta, vel, distinctio repellendus hic maxime eaque! Sequi at sunt inventore dolorum unde nesciunt nam?
@@ -236,15 +247,15 @@
                         <div class="container-iframe">
                             <div class="butoane">
                             <a href="https://youtube.com/embed/WZ6gGWjqhUk" target="ifr">Antrenament Muay Thai</a>
-                            <a href="https://youtube.com/embed/xVYAh0MQtiI" target="ifr">:')</a>
+                            <a href="https://youtube.com/embed/xVYAh0MQtiI" target="ifr">COBRA KAI</a>
                             <a href="https://youtube.com/embed/-kgVnNAHLLM" target="ifr">Forbidden Knowledge</a>
                             </div>
-                            <iframe class="videos" width="560" height="315" src="https://www.youtube.com/embed/WZ6gGWjqhUk" name="ifr" ></iframe>
+                            <iframe class="videos" width="560" height="315" src="https://www.youtube.com/embed/WZ6gGWjqhUk" name="ifr"></iframe>
                         </div> 
                         
                     </li>
                     <li>
-                        <a href="./stuff/Iuhu.png" download>O Primavara Frumoasa! Descarca pentru ceva bun bun =)</a>
+                        <a href="./stuff/Iuhu.png" download>O Primavara Frumoasa! Descarca pentru ceva bun bun =D</a>
                     </li>
                     <div>
 

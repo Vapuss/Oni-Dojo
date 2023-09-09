@@ -12,7 +12,14 @@ const {Utilizator}=require("./module_proprii/utilizator.js")
 const session=require('express-session');
 const Drepturi = require("./module_proprii/drepturi.js");
 
+const QRCode= require('qrcode');
+const puppeteer=require('puppeteer');
+const mongodb=require('mongodb');
+const helmet=require('helmet');
+const xmljs=require('xml-js');
  
+
+
 AccesBD.getInstanta().select(
     {tabel:"prajituri",
     campuri:["nume", "pret", "calorii"],
@@ -42,7 +49,11 @@ obGlobal={
     folderScss:path.join(__dirname,"stuff/scss"),
     folderCss:path.join(__dirname,"stuff/css"),
     folderBackup:path.join(__dirname,"backup"),
-    optiuniMeniu:[]
+    optiuniMeniu:[],
+    protocol:"http://",
+    numeDomeniu:"localhost:8080",
+    clientMongo:mongodb.MongoClient,
+    bdMongo:null
 }
 
 
@@ -57,6 +68,16 @@ app= express();
 console.log("Folder proiect", __dirname);
 console.log("Cale fisier", __filename);
 console.log("Director de lucru",process.cwd());
+
+var url = "mongodb://localhost:27017";//pentru versiuni mai vechi de Node
+var url = "mongodb://0.0.0.0:27017";
+ 
+obGlobal.clientMongo.connect(url, function(err, bd) {
+    if (err) console.log(err);
+    else{
+        obGlobal.bdMongo = bd.db("proiect_web");
+    }
+});
 
 app.use(session({ // aici se creeaza proprietatea session a requestului (pot folosi req.session)
     secret: 'abcdefg',//folosit de express session pentru criptarea id-ului de sesiune
@@ -138,6 +159,9 @@ app.use("/*", function(req, res, next){
     next();
 })
 
+app.use(["/produse_cos","/cumpara"],express.json({limit:'2mb'}));//obligatoriu de setat pt request body de tip json
+app.use(["/contact"], express.urlencoded({extended:true}));
+
 app.use(/^\/stuff(\/[a-zA-Z0-9]*)*$/,function(req, res){
     afiseazaEroare(res,403);
 })
@@ -204,6 +228,127 @@ app.get("/produs/:id",function(req, res){
             res.render("pagini/produs", {prod:rezultat.rows[0]});
     });
 });
+
+
+//////////////////////////////Cos virtual
+app.post("/produse_cos",function(req, res){
+    console.log(req.body);
+    if(req.body.ids_prod.length!=0){
+        //TO DO : cerere catre AccesBD astfel incat query-ul sa fi `select nume, descriere, pret, gramaj, imagine from prajituri where id in (lista de id-uri)`
+        AccesBD.getInstanta().select({tabel:"prajituri", campuri:"nume,descriere,pret,gramaj,imagine".split(","),conditiiAnd:[`id in (${req.body.ids_prod})`]},
+        function(err, rez){
+            if(err)
+                res.send([]);
+            else
+                res.send(rez.rows); 
+        });
+}
+    else{
+        res.send([]);
+    }
+ 
+});
+
+
+cale_qr=__dirname+"/stuff/pics/qrcode";
+if (fs.existsSync(cale_qr))
+  fs.rmSync(cale_qr, {force:true, recursive:true});
+fs.mkdirSync(cale_qr);
+client.query("select id from prajituri", function(err, rez){
+    for(let prod of rez.rows){
+        let cale_prod=obGlobal.protocol+obGlobal.numeDomeniu+"/produs/"+prod.id;
+        //console.log(cale_prod);
+        QRCode.toFile(cale_qr+"/"+prod.id+".png",cale_prod);
+    }
+});
+
+async function genereazaPdf(stringHTML,numeFis, callback) {
+    const chrome = await puppeteer.launch();
+    const document = await chrome.newPage();
+    console.log("inainte load")
+    await document.setContent(stringHTML, {waitUntil:"load"});
+    
+    console.log("dupa load")
+    await document.pdf({path: numeFis, format: 'A4'});
+    await chrome.close();
+    if(callback)
+        callback(numeFis);
+}
+
+app.post("/cumpara",function(req, res){
+    console.log(req.body);
+    console.log("Utilizator:", req?.utilizator);
+    console.log("Utilizator:", req?.utilizator?.rol?.areDreptul?.(Drepturi.cumparareProduse));
+    console.log("Drept:", req?.utilizator?.areDreptul?.(Drepturi.cumparareProduse));
+    if (req?.utilizator?.areDreptul?.(Drepturi.cumparareProduse)){
+        AccesBD.getInstanta().select({
+            tabel:"prajituri",
+            campuri:["*"],
+            conditiiAnd:[`id in (${req.body.ids_prod})`]
+        }, function(err, rez){
+            if(!err  && rez.rowCount>0){
+                console.log("produse:", rez.rows);
+                let rezFactura= ejs.render(fs.readFileSync("./views/pagini/factura.ejs").toString("utf-8"),{
+                    protocol: obGlobal.protocol, 
+                    domeniu: obGlobal.numeDomeniu,
+                    utilizator: req.session.utilizator,
+                    produse: rez.rows
+                });
+                console.log(rezFactura);
+                let numeFis=`./temp/factura${(new Date()).getTime()}.pdf`;
+                genereazaPdf(rezFactura, numeFis, function (numeFis){
+                    mesajText=`Stimate ${req.session.utilizator.username} aveti mai jos rezFactura.`;
+                    mesajHTML=`<h2>Stimate ${req.session.utilizator.username},</h2> aveti mai jos rezFactura.`;
+                    req.utilizator.trimiteMail("Factura", mesajText,mesajHTML,[{
+                        filename:"factura.pdf",
+                        content: fs.readFileSync(numeFis)
+                    }] );
+                    res.send("Totul e bine!");
+                });
+                rez.rows.forEach(function (elem){ elem.cantitate=1});
+                let jsonFactura= {
+                    data: new Date(),
+                    username: req.session.utilizator.username,
+                    produse:rez.rows
+                }
+                if(obGlobal.bdMongo){
+                    obGlobal.bdMongo.collection("facturi").insertOne(jsonFactura, function (err, rezmongo){
+                        if (err) console.log(err)
+                        else console.log ("Am inserat factura in mongodb");
+
+                        obGlobal.bdMongo.collection("facturi").find({}).toArray(
+                            function (err, rezInserare){
+                                if (err) console.log(err)
+                                else console.log (rezInserare);
+                        })
+                    })
+                }
+            }
+        })
+    }
+    else{
+        res.send("Nu puteti cumpara daca nu sunteti logat sau nu aveti dreptul!");
+    }
+    
+});
+
+app.get("/grafice", function(req,res){
+    if (! (req?.session?.utilizator && req.utilizator.areDreptul(Drepturi.vizualizareGrafice))){
+        afisEroare(res, 403);
+        return;
+    }
+    res.render("pagini/grafice");
+
+})
+
+app.get("/update_grafice",function(req,res){
+    obGlobal.bdMongo.collection("facturi").find({}).toArray(function(err, rezultat) {
+        res.send(JSON.stringify(rezultat));
+    });
+})
+
+
+
 
 ///////////////////////// Utilizatori
 
@@ -408,6 +553,15 @@ app.get("/useri", function(req, res){
         renderError(res, 403);
     }
 });
+
+app.get("/despre", function(req, res){
+    res.send("BAUUUU");
+    
+})
+
+app.get("/favicon.ico", function (req,res){
+    res.sendFile(__dirname+"/stuff/ico/favicon.ico")
+})
 
 
 app.post("/sterge_utiliz", function(req, res){

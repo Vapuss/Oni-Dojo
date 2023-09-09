@@ -5,74 +5,74 @@
 			"fisier":"Karate1.jpg",
 			"nume":"Karate1",
 			"descriere":"Antrenament karate",
-			"zile":[["luni","luni"],["miercuri","miercuri"],["vineri","vineri"]]
+			"zile":["luni","miercuri","vineri"]
 		},
 		{
 			"fisier":"Karate2.jpg",
 			"nume":"Karate2",
 			"descriere":"Antrenament karate",
-			"zile":[["luni","luni"],["miercuri","miercuri"],["vineri","vineri"]]
+			"zile":["luni","miercuri","vineri"]
 			
 		},
 		{
 			"fisier":"Karate3.jpg",
 			"nume":"Karate3",
 			"descriere":"Antrenament karate",
-			"zile":[["luni","luni"],["miercuri","miercuri"],["vineri","vineri"]]
+			"zile":["luni","miercuri","vineri"]
 		},
 		{
 			"fisier":"Kickboxing1.jpg",
 			"nume":"Kickboxing1",
 			"descriere":"Antrenament kickboxing",
-			"zile":[["luni","sambata"]]
+			"zile":["luni","sambata"]
 		},
 		{
 			"fisier":"Kickboxing2.jpg",
 			"nume":"Kickboxing2",
 			"descriere":"Antrenament kickboxing",
-			"zile":[["luni","sambata"]]
+			"zile":["luni","sambata"]
 		},
 		{
 			"fisier":"Kickboxing3.jpg",
 			"nume":"Kickboxing3",
 			"descriere":"Antrenament kickboxing",
-			"zile":[["luni","sambata"]]
+			"zile":["luni","sambata"]
 		},
 		{
 			"fisier":"MMA1.jpg",
 			"nume":"MMA1",
 			"descriere":"Antrenament MMA",
-			"zile":[["luni","luni"],["joi","joi"],["sambata","sambata"]]
+			"zile":["luni","joi","sambata"]
 		},
 		{
 			"fisier":"MMA2.jpg",
 			"nume":"MMA2",
 			"descriere":"Antrenament MMA",
-			"zile":[["luni","luni"],["joi","joi"],["sambata","sambata"]]
+			"zile":["luni","joi","sambata"]
 		},
 		{
 			"fisier":"MMA3.jpg",
 			"nume":"MMA3",
 			"descriere":"Antrenament MMA",
-			"zile":[["luni","luni"],["joi","joi"],["sambata","sambata"]]
+			"zile":["luni","joi","sambata"]
 		},
 		{
 			"fisier":"MuayThai1.jpg",
 			"nume":"MuayThai1",
 			"descriere":"Antrenament MuayThai",
-			"zile":[["marti","marti"],["joi","joi"],["sambata","sambata"]]
+			"zile":["marti","joi","sambata"]
 		},
 		{
 			"fisier":"MuayThai2.jpg",
 			"nume":"MuayThai2",
 			"descriere":"Antrenament MuayThai",
-			"zile":[["marti","marti"],["joi","joi"],["sambata","sambata"]]
+			"zile":["marti","joi","sambata"]
 		},
 		{
 			"fisier":"MuayThai3.jpg",
 			"nume":"MuayThai3",
 			"descriere":"Antrenament MuayThai",
-			"zile":[["marti","marti"],["joi","joi"],["sambata","sambata"]]
+			"zile":["marti","joi","sambata"]
 		}
 	]
 }

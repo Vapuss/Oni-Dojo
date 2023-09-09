@@ -1,0 +1,136 @@
+main{
+    --padd-main:1rem;
+    padding-left:var(--padd-main);
+    padding-right:var(--padd-main);
+}
+
+.grid-produse{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /*repeat(4,1fr)*/
+    grid-row-gap:15px;
+    grid-column-gap: 5px;
+}
+.grid-produse .jucarie{
+    border-radius: 2rem;
+    box-shadow: 0px 0px 0.8rem 0.3rem grey;
+    overflow: hidden;
+}
+
+.jucarie:nth-child(8n+1), .jucarie:nth-child(8n+5){
+    background-color: blueviolet;
+}
+.jucarie:nth-child(8n+2), .jucarie:nth-child(8n+4), .jucarie:nth-child(8n+7){
+    background-color: aquamarine;
+}
+.jucarie:nth-child(8n+3), .jucarie:nth-child(8n+6), .jucarie:nth-child(8n){
+    background-color: rgb(7, 71, 50);
+}
+
+
+
+
+.grid-produse .produs h3{
+    background-color: var(--culoare-roz-inchis);
+    text-align: center;
+    margin-top: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.grid-produse .produs h3 a{
+    color:black;
+}
+.grid-produse .produs h3 a:hover{
+    color:white;
+}
+.grid-produse .produs figure{
+    text-align: center;
+}
+.grid-produse .produs figure img{
+    border:1px solid grey
+}
+.grid-produse .produs .info-prod{
+    display:flex;
+    background-color: var(--cl-marcare);
+}
+.grid-produse .produs .info-prod p{
+    width:30%;
+    text-align:center;
+    font-weight:bold;
+}
+
+.grid-produse .produs p.categorie{
+
+    text-align:center;
+    font-weight:bold;
+}
+
+.info-produse{
+    background-color: var(--cl-marcare);
+    padding:0.2rem;
+    box-shadow: 0px 0px 0.5rem 0.15rem grey;
+}
+
+.produs{
+    position: relative;
+}
+.selecteaza-cos{
+    display: inline-block;
+    background-color: var(--culoare-mov);
+    position:absolute;
+    bottom:0.5rem;
+    right:0.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    padding:0.3rem;
+    border:1px solid transparent;
+}
+
+.selecteaza-cos:hover{
+    background-color: var(--cl-marcare);
+    
+    border:1px solid  var(--culoare-mov);
+}
+
+.jucarie ul{
+    list-style-type:circle;
+}
+
+h2:hover~.babu{
+    animation-name:culori;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes culori{
+    0%{
+        background-color: initial;
+    }
+    33.33%{
+        background-color: red;
+    }
+    66.66%{
+        background-color: blue;
+    }
+    100%{
+        background-color: pink;
+    }
+}
+
+
+
+@media screen and (max-width:1200px){
+    .grid-produse{
+        grid-template-columns: 1fr 1fr; /*repeat(4,1fr)*/}
+
+    /* Var 1
+    .jucarie:nth-child(n){
+        background-color: antiquewhite;
+    } */
+    /* Var 2 , trb cu important pt ca nth child e prioritar!*/
+    .jucarie{
+        background-color: antiquewhite!important;
+    }
+}

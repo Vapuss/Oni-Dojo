@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html  lang="ro">
+    <head>
+        <meta name="description" content="Cofetaria Dulcelind ofera prajituri, torturi, produse de patiserie cu optiunea de achizitie online si livrare prin curier.">
+        <meta name="keywords" content="cofetarie, Dulcelind, prajituri, torturi, dulce, pateuri, produse">
+        <link rel="stylesheet" href="/stuff/css/jucarii.css" type="text/css" />
+        <title>Cofetăria Dulcelind - home</title>
+        <%- include("../fragmente/head") %>     
+        <script type="text/javascript" src=/stuff/js/produse.js></script>
+
+    </head>
+    <body>
+    <%- include("../fragmente/header") %>
+
+    <main>
+        <label> Nume: <input type="text" id="inp-nume"></label>
+        <!--<label> Maxim calorii: <input type="number" id="inp-calorii" value="10000"></label>-->
+        <div> Calorii:<!-- trebuie sa aiba acelasi name ca sa formeze un grup -->
+            <p><label>Dietetic (calorii &lt; 350)
+                <input id="i_rad1"  name="gr_rad" value="0:350" type="radio"/>
+            </label></p>
+            <p><label>Mediu (350 &le; calorii &lt; 700)
+                <input id="i_rad2"  name="gr_rad" value="350:750" type="radio"/>
+            </label>
+            <p><label>Ridicat caloric (700 &le; calorii)
+                <input id="i_rad3" name="gr_rad" value="700:1000000000" type="radio"/>
+            </label>
+            <p><label>Toate
+                <input id="i_rad4" checked name="gr_rad" value="toate" type="radio"/>
+            </label>
+        </div>
+
+
+        <label> Pret minim: <input type="range" id="inp-pret" value="0" min="0"  max="70"> <span id="infoRange">(0)</span></label>
+      
+        <p>
+        <button id="filtrare">Filtreaza</button> 
+
+        <button id="resetare">Reseteaza</button><br/>
+        <button id="sortCrescNume">Sorteaza crescator dupa pret si nume</button>
+        <button id="sortDescrescNume">Sorteaza descrescator dupa pret si nume</button>
+        
+        </p>
+        
+        <p id="p-suma">Apăsați Alt+"c" pentru suma preturilor produselor afișate. </p>
+        <section id="produse">
+            <h2>Produse</h2>
+            <div class="grid-produse">
+                <% for( let prod of locals.produse) { %>
+                    <article class="jucarie" >
+                        <h2 class="titlu">Nume: <a href="/produs/<%-prod.id %>" ><span class="val-nume"><%- prod.nume%></span></a></h2>
+
+                        <p class="varsta_minima">Varsta: <span class="val-varsta"><%- prod.varsta_minima%></span></p>
+                        <ul>
+
+                            <%
+                            prod.culori.sort(function(a,b){
+                                return b.length - a.length
+
+                            })
+
+                            
+                             for(let culoare of prod.culori){ %>
+                                <li><%- culoare %></li>
+
+                           <% } %>
+                        </ul>
+                        <% if(prod.varsta_minima<6){%>
+                        <p>potrivit pentru gradi</p>
+                        <%}%>
+                        <label class="babu">
+                            <input type="checkbox"><span class="val-pret"><%- prod.pret%></span></p>
+                        </label>
+                        <%
+                            zile=["duminica","luni","marti","miercuri","joi","vineri","sambata"];
+                            luni=["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"];
+                            ///luni(06/06/2022, 10:05:22)
+
+                            sir_data=`${zile[prod.data_adaugare.getDay()]}(${prod.data_adaugare.getDate()}/${prod.data_adaugare.getMonth()+1}/${prod.data_adaugare.getFullYear()}, ${prod.data_adaugare.getHours()}:${prod.data_adaugare.getMinutes()}:${prod.data_adaugare.getSeconds()})`;
+                            sir_date_time=`${prod.data_adaugare.getFullYear()}-${prod.data_adaugare.getMonth()+1}-${prod.data_adaugare.getDate()} ${prod.data_adaugare.getHours()}:${prod.data_adaugare.getMinutes()}:${prod.data_adaugare.getSeconds()}`;
+                        %>
+                        <p><time datetime="<%- sir_date_time%>"><%- sir_data%></time></p>
+                        
+                    </article>
+                <% }%>
+            </div>
+        </section>
+    </main>
+
+    <%- include("../fragmente/footer") %>
+    </body>
+</html>

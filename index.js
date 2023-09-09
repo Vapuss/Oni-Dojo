@@ -587,6 +587,46 @@ app.get("/logout", function(req, res){
 });
 
 
+
+/////////////////////EXAMEN MODEL/////////////////////////////////////////////////////
+
+app.get("/jucarii",function(req, res){
+
+   
+            client.query("select * from jucarii" , function( err, rez){
+                
+                if(err){
+                    console.log(err);
+                    afiseazaEroare(res, 2);
+                }
+                else
+                    console.log(rez);
+                for(let jucarie of rez.rows){
+                    console.log(jucarie.culori);
+                }
+                    res.render("pagini/jucarii", {produse:rez.rows});
+            });
+        }
+    
+    
+    
+       
+
+
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get("/*.ejs", function(req, res){
     afiseazaEroare(res, 400);
 })
